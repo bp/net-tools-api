@@ -60,9 +60,6 @@ http://www.mulesoft.org/schema/mule/api-platform-gw http://www.mulesoft.org/sche
     <flow name="get:/traceroute:net-tools-config">
         <component class="com.mulesoft.tool.vpc.TraceRoute" doc:name="TraceRoute" />
     </flow>
-    <flow name="get:/telnet:net-tools-config">
-        <component class="com.mulesoft.tool.vpc.Telnet" doc:name="Telnet" />
-    </flow>
     <flow name="get:/socket:net-tools-config">
         <component class="com.mulesoft.tool.vpc.SocketTool" doc:name="Socket" />
     </flow>
