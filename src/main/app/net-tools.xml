@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" 
+<mule xmlns:api-platform-gw="http://www.mulesoft.org/schema/mule/api-platform-gw" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" 
 	xmlns:apikit="http://www.mulesoft.org/schema/mule/apikit" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
@@ -13,7 +13,8 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/apikit/current/mule-apikit.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd" >
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/api-platform-gw http://www.mulesoft.org/schema/mule/api-platform-gw/current/mule-api-platform-gw.xsd" >
 
     <mule-ss:security-manager doc:name="Spring Security Provider" name="SpringSecurityProvider">
         <mule-ss:delegate-security-provider name="memory-provider" delegate-ref="authenticationManager" />
@@ -29,8 +30,9 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
       </ss:authentication-manager> 
     </spring:beans>
     
-    <apikit:config name="net-tools-config" raml="net-tools.raml" consoleEnabled="true" consolePath="console" doc:name="Router" />
+    <apikit:config name="net-tools-config" raml="net-tools.raml" consoleEnabled="true" consolePath="console" doc:name="Router" keepRamlBaseUri="false"/>
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration"/>
+    <api-platform-gw:api apiName="BP Network Tools on OpenShift sAPI" version="dev" flowRef="net-tools-main" create="true" apikitRef="net-tools-config" doc:name="API Autodiscovery"/>
     <flow name="net-tools-main">
         <http:listener config-ref="HTTP_Listener_Configuration" path="/api/*" doc:name="HTTP"/>
         <apikit:router config-ref="net-tools-config" doc:name="APIkit Router"/>
