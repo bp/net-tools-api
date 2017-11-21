@@ -15,20 +15,6 @@ http://www.mulesoft.org/schema/mule/apikit http://www.mulesoft.org/schema/mule/a
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/api-platform-gw http://www.mulesoft.org/schema/mule/api-platform-gw/current/mule-api-platform-gw.xsd" >
-
-    <mule-ss:security-manager doc:name="Spring Security Provider" name="SpringSecurityProvider">
-        <mule-ss:delegate-security-provider name="memory-provider" delegate-ref="authenticationManager" />
-    </mule-ss:security-manager>
- 
-    <spring:beans>
-      <ss:authentication-manager alias="authenticationManager">
-        <ss:authentication-provider>
-          <ss:user-service id="userService">
-            <ss:user name="${user}" password="${pass}" authorities="ROLE_ADMIN" />
-          </ss:user-service>
-        </ss:authentication-provider>
-      </ss:authentication-manager> 
-    </spring:beans>
     
     <apikit:config name="net-tools-config" raml="net-tools.raml" consoleEnabled="true" consolePath="console" doc:name="Router" keepRamlBaseUri="false"/>
     <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="${http.port}" doc:name="HTTP Listener Configuration"/>
